@@ -13,6 +13,25 @@ var tests = []struct {
 	{"invalid-data", 100.0, 0.0, 0.0, true},
 }
 
+func TestDivision(t *testing.T) {
+	for _, tt := range tests {
+		got, err := divide(tt.dividend, tt.divisor)
+		if tt.isErr {
+			if err == nil {
+				t.Error("Expected an error, but did not get one")
+			}
+		} else {
+			if err != nil {
+				t.Error("Did not expect an error, but got one")
+			}
+		}
+
+		if got != tt.expected {
+			t.Error("expected %f but got %f", tt.expected, got)
+		}
+	}
+}
+
 func TestDivide(t *testing.T) {
 	_, err := divide(10.0, 1.0)
 	if err != nil {
